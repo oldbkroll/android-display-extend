@@ -28,3 +28,7 @@ Android报告25个支持模式（包含部分系统合成的比例修正模式�
 已用设备帮助中核实的cmd display clear-user-preferred-display-mode 2清除测试偏好；读回null，实际仍2560×1440@60。未修改DPI/缩放、刷新率全局策略、手机显示参数或APK。日志抓取结束，临时无线调试关闭结果见wireless-cleanup.json，配对凭据保留。其他原跳过测试保持SKIPPED。
 
 完整模式清单、原始日志和固件分析仅在本地device-validation/20261031/output-modes保存；仓库仅保存本概括记录，不上传设备日志、应用列表、网络地址或固件副本。
+
+## Release迁移期间的新观察（17:22左右）
+
+在暂时关闭Unlock总开关、恢复镜像（master=0/mirror=1）、清除用户模式偏好的状态，安装后某次Android活动模式读数为2560×1440@120（mode16）。没有同期SurfaceFlinger/HWC或OSD读数；17:23再次读取时Android与SF/HWC均回到2560×1440@60。因此这是镜像状态下的瞬时读数线索，不是Extend可靠切换120Hz的验证通过，也不能据此前独立模式测试认定硬件始终只能60Hz。后续若继续，需同步观察模式变化、前台负载和镜像/独立状态。

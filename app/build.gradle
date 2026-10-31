@@ -17,8 +17,8 @@ android {
         applicationId = "io.github.jqssun.displayextend"
         minSdk = 26
         targetSdk = 37
-        versionCode = 29
-        versionName = "0.0.27-zh-cn.2"
+        versionCode = 30
+        versionName = "0.0.27-zh-cn.2-release.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -32,9 +32,9 @@ android {
         signingConfigs {
             release {
                 storeFile = file(localProps.getProperty('storeFile'))
-                storePassword = localProps.getProperty('storePassword')
+                storePassword = System.getenv('DISPLAYUNLOCK_EXTEND_STORE_PASSWORD') ?: localProps.getProperty('storePassword')
                 keyAlias = localProps.getProperty('keyAlias')
-                keyPassword = localProps.getProperty('keyPassword')
+                keyPassword = System.getenv('DISPLAYUNLOCK_EXTEND_STORE_PASSWORD') ?: localProps.getProperty('keyPassword')
             }
         }
     }
