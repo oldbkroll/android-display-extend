@@ -243,4 +243,7 @@
     <!-- ServiceUtils Toast messages -->
     <string name="shizuku_launch_failed">Failed to launch app via Shizuku</string>
 
+    <string name="projection_channel_name">Media Projection Service</string>
+    <string name="projection_notification_title">Media Projection Service</string>
+    <string name="projection_notification_text">Running in the background</string>
 </resources>

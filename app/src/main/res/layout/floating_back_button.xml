@@ -5,6 +5,7 @@
     android:layout_width="48dp"
     android:layout_height="48dp"
     android:padding="12dp"
+    android:contentDescription="@string/back_button"
     android:background="@drawable/floating_button_background"
     android:alpha="0.8"
     app:tint="#FFFFFF"

@@ -18,7 +18,7 @@
 - Shizuku 经用户授权（AcquireShizuku）提供 shell/root 身份；ServiceUtils 用 ShizukuBinderWrapper 调用 WM/DM/Input/AM/权限/音频服务。没有自行运行 su 的流程。
 - 上游在设置页尝试授予本包 WRITE_SECURE_SETTINGS；无障碍启动路径还会在用户已接受披露后，授予该权限并修改本包的 enabled_accessibility_services 条目。这是实际存在的高权限行为，不能描述为“仅普通权限”。保持既有授权边界，本地化须清楚表述。
 - UserService AIDL 只有退出、logcat -d、dumpsys input、screenPower、音量监听接口；内部 `_exec` 不是接受任意远程 shell 的公开 AIDL。未发现互联网服务端、网络遥控或下载执行；manifest 无 INTERNET。
-- 导出入口：MainActivity 的导航/USB intent；受系统权限保护的 ShizukuProvider；导出的 PureBlack ExitReceiver 只退出黑屏，不执行任意参数命令。FileProvider 不导出，仅共享明确授权 URI；file_paths 指向日志目录。
+- 导出入口：MainActivity 的导航/USB intent；受系统权限保护的 ShizukuProvider；导出的 PureBlack ExitReceiver 只退出黑屏，不执行任意参数命令。FileProvider 不导出，仅共享明确授权 URI；file_paths 允许整个应用缓存目录，日志导出使用缓存内文件。
 - 日志导出会读取 **系统 logcat -d**，可能含第三方应用和设备敏感信息。只由用户分享，不自动上传。应用列表、输入 descriptor、任务/窗口信息用于本机显示管理。调试日志保留技术原文/API 标识，页面和操作文案本地化。
 - Reset All 清理本包偏好和显示服务、恢复部分全局设置与外屏覆盖；不是删除用户目录。未发现刷写系统分区、破坏文件、清除系统安全凭据或操作 TEE/Gatekeeper/KeyMint/Keystore 的实现。此结论限于所审源码，不是固件/依赖安全认证。
 
