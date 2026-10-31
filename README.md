@@ -1,4 +1,12 @@
-# Display Manager for Android
+# Extend — Simplified Chinese fork
+
+本分支新增完整简体中文资源，并在副屏移除或退出程序时主动请求恢复内屏。自编译测试包使用 debug 签名；恢复步骤的单元测试已通过，目标手机上的实际面板恢复和显示兼容性待验证。
+
+See [current changes, build checks and manual recovery](docs/CURRENT_PROFILE.md) and the [architecture audit](docs/ARCHITECTURE_AND_PLAN.md). English remains the default language. GPL-3.0 and upstream attribution are preserved.
+
+---
+
+# Display Manager for Android (upstream background)
 
 [![Stars](https://img.shields.io/github/stars/jqssun/android-display-extend?label=stars&logo=GitHub)](https://github.com/jqssun/android-display-extend)
 [![GitHub](https://img.shields.io/github/downloads/jqssun/android-display-extend/total?label=GitHub&logo=GitHub)](https://github.com/jqssun/android-display-extend/releases)

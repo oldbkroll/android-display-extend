@@ -33,5 +33,5 @@
 - 增加完整 `values-zh-rCN`；默认英文不变。外置 MediaProjection 通知/渠道中的英文硬编码，检查格式占位、导航 `{display_id}` / `{device_id}` 模板、无障碍标签和布局高度。数字、度数、包名、API/flag 和系统来源标签不翻译。
 - 本地化独立提交并构建；恢复修复另一个提交。保持 AGP 9.4.1 / Gradle 9.8.1 / compile SDK 37，不通过升级或降级掩盖问题。记录实际使用 JDK 和 debug 签名。
 - Unlock 只创建独立外屏必要能力、解除镜像策略和保留手动镜像入口；本项目独占应用启动、显示参数、触控/导航/内屏控制。无需连接 Unlock 私有 API。
-- 本机执行 assembleDebug、lintDebug、testDebugUnitTest、资源一致性和 manifest 检查；现有测试是模板示例，不代表业务验证。新增恢复逻辑需专门验证，不能用模板测试冒充。
+- 本机执行 assembleDebug、lintDebug、testDebugUnitTest、资源一致性和 manifest 检查。上游有测试依赖但无测试源码，初次测试任务为 NO-SOURCE；随后新增 ScreenRecoveryTest 的 4 个恢复顺序/失败隔离测试。它们不验证 Android Binder、实际面板电源和固件行为。
 - 实机矩阵：DP 与 HDMI、原始/改分辨率和 DPI、刷新/旋转、首次/再次连接、外屏独立全屏、手机同时操作、触控板和实体输入、音量恢复、拔线恢复、退出恢复、Shizuku 服务断开、原生镜像恢复。均标记待验证，未经用户许可不安装/重启/修改设备。

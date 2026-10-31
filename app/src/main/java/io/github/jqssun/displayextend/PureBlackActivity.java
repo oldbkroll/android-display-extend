@@ -176,18 +176,37 @@ public class PureBlackActivity extends AppCompatActivity {
     }
   }
 
+  /** Restore before process exit, or when a display disappears; do not wait for onDestroy. */
+  public static void restorePhoneScreen() {
+    if (State.isInPureBlackActivity instanceof PureBlackActivity) {
+      PureBlackActivity activity = (PureBlackActivity) State.isInPureBlackActivity;
+      activity.restoreScreen(() -> activity.runOnUiThread(activity::finish));
+    }
+  }
+
+  private void restoreScreen(ScreenRecovery.Step dismiss) {
+    // Capture the binder once so a concurrent disconnect cannot turn it into null mid-call.
+    io.github.jqssun.displayextend.shizuku.IUserService service = State.userService;
+    ScreenRecovery.restore(
+        () -> {
+          if (useRealScreenOff && service != null) {
+            service.setScreenPower(SurfaceControl.POWER_MODE_NORMAL);
+          }
+        },
+        () -> {
+          if (useRealScreenOff && service != null) {
+            service.stopListenVolumeKey();
+          }
+        },
+        dismiss,
+        error -> State.log("screen recovery step failed: " + error.getMessage()));
+  }
+
   @Override
   public void onDestroy() {
-    super.onDestroy();
+    restoreScreen(() -> {});
     State.isInPureBlackActivity = null;
-    if (useRealScreenOff && State.userService != null) {
-      try {
-        State.userService.stopListenVolumeKey();
-        State.userService.setScreenPower(SurfaceControl.POWER_MODE_NORMAL);
-      } catch (RemoteException e) {
-        State.log("powerUpScreen failed: " + e.getMessage());
-      }
-    }
+    super.onDestroy();
   }
 
   private boolean _isExternalDevice(MotionEvent event) {

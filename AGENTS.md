@@ -8,7 +8,7 @@
 ## Build and validation
 - Use committed wrapper: `./gradlew --no-daemon :app:assembleDebug :app:lintDebug :app:testDebugUnitTest` (Windows `gradlew.bat`). AGP 9.4.1, Gradle 9.8.1; upstream CI uses JDK 21. App compile/target SDK 37 (SDK package `platforms;android-37.0`), min SDK 26; stub compile SDK 34; Java source level 11.
 - Do not arbitrarily upgrade/downgrade Gradle, SDK or dependencies. Set SDK in ignored `local.properties` or environment. Release signing is optional upstream; unsigned release APKs are not installable. Clearly label debug-signed artifacts and never commit signing secrets/local SDK paths.
-- Check native resources/locale parity and formatting, merged manifest and `git diff --check`. Existing sample tests are not proof of firmware compatibility. Physical hotplug, rotation, input routing, resolution and phone-panel restoration require actual authorized device tests.
+- Check native resources/locale parity and formatting (`python scripts/check_locales.py`), merged manifest and `git diff --check`. Upstream had test dependencies but no test sources; `ScreenRecoveryTest` covers recovery sequencing and failure isolation only. Physical hotplug, rotation, input routing, resolution and phone-panel restoration require actual authorized device tests.
 
 ## Privileged behavior and safety
 - Shizuku permission is granted by the user; document whether an operation needs shell or root and any accessibility/overlay dependency. Do not auto-grant permissions, enable accessibility, root the device or expand exported IPC.

@@ -5,11 +5,14 @@ import android.content.Intent;
 import io.github.jqssun.displayextend.FloatingButtonService;
 import io.github.jqssun.displayextend.ManagedVirtualDisplayActivity;
 import io.github.jqssun.displayextend.MediaProjectionService;
+import io.github.jqssun.displayextend.PureBlackActivity;
 import io.github.jqssun.displayextend.State;
 import io.github.jqssun.displayextend.TouchpadAccessibilityService;
 
 public class ExitAll {
   public static void execute(Context context) {
+    // killProcess below does not guarantee Activity.onDestroy will run.
+    PureBlackActivity.restorePhoneScreen();
     if (State.mediaProjectionInUse != null) {
       State.mediaProjectionInUse.stop();
       State.mediaProjectionInUse = null;

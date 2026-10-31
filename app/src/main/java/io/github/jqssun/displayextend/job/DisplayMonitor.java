@@ -38,6 +38,11 @@ public class DisplayMonitor {
           @Override
           public void onDisplayRemoved(int displayId) {
             State.log("display removed, displayId: " + displayId);
+            // Prefer a usable phone after any secondary display disappears, including a
+            // managed-display host. A virtual display may survive its physical host.
+            if (displayId != Display.DEFAULT_DISPLAY) {
+              PureBlackActivity.restorePhoneScreen();
+            }
             if (State.floatingButtonService != null) {
               State.floatingButtonService.onDisplayRemoved(displayId);
             }
