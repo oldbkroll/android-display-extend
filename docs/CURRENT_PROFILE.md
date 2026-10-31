@@ -1,3 +1,5 @@
+> 当前更新：第二版见 [REVISION_2.md](REVISION_2.md)。下文为第一版交付时的历史快照；剩余实机验证已按用户要求全部标记 SKIPPED。第二版构建与检查见该修订记录。
+
 # 简体中文版与恢复修复
 
 版本 `0.0.27-zh-cn.1`（28），包名 `io.github.jqssun.displayextend`；分支 `codex/zh-cn-localization`。基线上游 v0.0.27 / `4598db3f710a7d7081c4386c5353d909f573ed10`。

@@ -12,6 +12,8 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.Display;
 import android.view.KeyEvent;
+import android.view.KeyEventHidden;
+import dev.rikka.tools.refine.Refine;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
@@ -293,11 +295,24 @@ public class TouchpadAccessibilityService extends AccessibilityService {
 
   @Override
   protected boolean onKeyEvent(KeyEvent event) {
-    if (event.getKeyCode() == KeyEvent.KEYCODE_HOME && State.lastSingleAppDisplay > 0) {
-      TouchpadActivity.launchLastPackage(getApplicationContext(), State.lastSingleAppDisplay);
+    if (event.getKeyCode() == KeyEvent.KEYCODE_HOME
+        && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+        && HomeKeyRouting.shouldHandle(keyDisplayId(event), State.lastSingleAppDisplay)) {
+      if (event.getAction() == KeyEvent.ACTION_UP && !event.isCanceled()) {
+        TouchpadActivity.launchLastPackage(getApplicationContext(), State.lastSingleAppDisplay);
+      }
       return true;
     }
     return false;
+  }
+
+  private static int keyDisplayId(KeyEvent event) {
+    try {
+      KeyEventHidden hidden = Refine.unsafeCast(event);
+      return hidden.getDisplayId();
+    } catch (Throwable ignored) {
+      return Display.INVALID_DISPLAY;
+    }
   }
 
   @Override
